@@ -35,9 +35,6 @@ else
 	echo "-------------------------------------------------------------------------------------------------"
 	echo "正在下载到代理服务器..."
 	ssh -p ${wgets_port} ${wgets_user}@${wgets_server} "wget -nv -O ${wgets_name} ${wgets_url} && exit"
-	echo ""
-	echo "文件名称: $wgets_name"
-	echo "-------------------------------------------------------------------------------------------------"
 	echo "已成功下载到代理服务器..."
 	echo "正在下载到本地..."
 	scp -P ${wgets_port} ${wgets_user}@${wgets_server}:/home/${wgets_user}/${wgets_name} .
