@@ -29,24 +29,31 @@ then
 	echo "wgets_user=${wgets_user}" >> "$wgets_config"
 	echo "wgets_port=${wgets_port}" >> "$wgets_config"
 else
-	source $wgets_config
-	echo ""
-	echo "文件名称: $wgets_name"
-	echo "-------------------------------------------------------------------------------------------------"
-	echo "正在下载到代理服务器..."
-	ssh -p ${wgets_port} ${wgets_user}@${wgets_server} "wget -nv -O ${wgets_name} ${wgets_url} && exit"
-	echo "已成功下载到代理服务器..."
-	echo "正在下载到本地..."
-	scp -P ${wgets_port} ${wgets_user}@${wgets_server}:/home/${wgets_user}/${wgets_name} .
-	if [ $? -eq 0 ]
+	if [ "$wget_url" == '' ]
 	then
-		echo "已成功下载到本地..."
+		echo "使用方式: wgets {{下载链接}}"
+		exit 0
 	else
-		echo "本地下载失败..."
+
+		source $wgets_config
+		echo ""
+		echo "文件名称: $wgets_name"
+		echo "-------------------------------------------------------------------------------------------------"
+		echo "正在下载到代理服务器..."
+		ssh -p ${wgets_port} ${wgets_user}@${wgets_server} "wget -nv -O ${wgets_name} ${wgets_url} && exit"
+		echo "已成功下载到代理服务器..."
+		echo "正在下载到本地..."
+		scp -P ${wgets_port} ${wgets_user}@${wgets_server}:/home/${wgets_user}/${wgets_name} .
+		if [ $? -eq 0 ]
+		then
+			echo "已成功下载到本地..."
+		else
+			echo "本地下载失败..."
+		fi
+		echo "正在删除临时文件..."
+		ssh -p ${wgets_port} ${wgets_user}@${wgets_server} "rm ${wgets_name} && exit"
+		echo "已成功删除临时文件..."
+		echo "下载已完成..."
 	fi
-	echo "正在删除临时文件..."
-	ssh -p ${wgets_port} ${wgets_user}@${wgets_server} "rm ${wgets_name} && exit"
-	echo "已成功删除临时文件..."
-	echo "下载已完成..."
 fi
 exit 0

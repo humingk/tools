@@ -1,27 +1,31 @@
 # tools
+
 自己写的一些小脚本，小工具，提升工作效率
 
-# wgets---服务器代理手动下载
+---
 
-因为经常遇到本地设置的代理无效、下载太慢等情况，而云服务器带宽很大而且没有GFW的限制，所以有时候不得不登录到服务器上用wget下载再用scp传回本地，所以这里写一个脚本简化操作。
+目录
+
+- [wgets 真·服务器代理下载](#wgets---真·服务器代理下载)
+- 
+
+
+
+# wgets---真·服务器代理下载
+
+因为经常遇到本地设置的代理无效、下载太慢等情况，所以有时候不得不登录到服务器上用wget下载文件再用scp传回本地，此脚本代替这一操作。
 
 ## 安装方式
 
-- 下载脚本
+- 下载脚本，赋予执行权限，移至环境变量中可执行路径
 
 ```bash
-git clone https://github.com/humingk/tools/wgets.sh
-```
-
-- 设置软链接
-
-```bash
-sudo ln -s [wgets.sh的绝对路径] /usr/bin/wgets
+wget https://raw.githubusercontent.com/humingk/tools/master/wgets.sh && chmod a+x wgets.sh && sudo mv wgets.sh /usr/bin/wgets
 ```
 
 ## 使用方式
 
-- 首先，配置基本信息
+- 配置基本信息
 
 ```bash
 ╰─$ wgets
@@ -34,7 +38,7 @@ sudo ln -s [wgets.sh的绝对路径] /usr/bin/wgets
 ...
 ```
 
-- 其次，开始下载
+- 开始下载
 
 ```bash
 ╰─$ wgets https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.xz
