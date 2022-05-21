@@ -29,7 +29,7 @@ then
 	echo "wgets_user=${wgets_user}" >> "$wgets_config"
 	echo "wgets_port=${wgets_port}" >> "$wgets_config"
 else
-	if [ "$wget_url" == '' ]
+	if [ "$wgets_url" == '' ]
 	then
 		echo "使用方式: wgets {{下载链接}}"
 		exit 0
